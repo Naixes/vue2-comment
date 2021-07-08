@@ -1,0 +1,179 @@
+vue  
+
+vue2 
+
+vue3
+
+
+Web Components  
+
+
+1. vue 架构 
+2. 双向数据绑定 
+3. 
+
+
+
+vue      +      react  (fiber) 
+
+
+编译时优化       运行时优化 
+
+
+vue 双向数据绑定 
+    
+    语法模板 
+
+
+    <div>
+    {{data.map(()=>{
+
+    })}}
+    </div> 
+
+React 
+    jsx  ==> React.CreateElement  
+
+    把标签替换成js的创建方法 ==>语法唐 
+
+     React.CreateElement
+    {{data.map(()=>{
+        
+    })}}
+    </div> 
+
+
+
+
+
+dist :   
+
+    runtime  运行时   ==> 反应 内存里的数据状态
+
+        虚拟dom
+        响应式数据
+
+
+    compile 编译时    写的代码==> 认识的代码
+
+    vue teamplate ==> 编译时 (离线编译、在线编译)
+
+
+
+     only Runtime     运行时 
+     Runtime+compiler    运行时 + 编译器代码
+
+flow(js类型框)    ts (语言)
+
+
+new vue ({
+    teamplate:<vue> 
+});
+
+
+packages  
+    vue-loader    vue(teamplate==>js)
+    SSR 
+
+
+
+compiler 编译代码  
+
+
+
+
+
+
+
+
+
+
+core   runtime'
+ 
+
+
+platform  
+
+sfc
+
+
+component ==> vuex    ==> vue 
+
+ ```js
+ // Vue
+with(this){
+  //创建虚拟dom
+  return _c('div',{attrs:{"id":"app"}},[_c('div',[(message)?_c('h2',[_v(_s(message))]):_e(),_v(" "),_c('button',{on:{"click":showName}},[_v("showName")]),_v(" "),(v)?_c('div',[_m(0)]):_e()])])
+}
+ ```
+模板分析不出来 
+
+vue模板 里面  => js 语句   ==>   bable core   
+
+```js
+// hack 
+with(this){
+  return _c('div',{attrs:{"id":"app"}},[_c('div',[(message)?_c('h2',[_v(_s(message? showName : 2))]):_e(),_v(" "),_c('button',{on:{"click":showName}},[_v("showName")]),_v(" "),(v)?_c('div',[_m(0)]):_e()])])
+}
+// VNode  
+```
+
+message? showName : data
+
+this.message?this.showName:this.data
+
+
+vue3 离线编译 集成js编译器分析js
+     在线编译 with 
+
+
+vue2 正则匹配模板  ==> 回溯 
+   静态节点的优化(编译时分析)
+
+vue3 状态机 
+
+```js
+var obj={}
+var a;
+Object.defineProperty(obj,'a',{
+    get:function(){
+        console.log('get val');
+        return a;
+
+        //get {{times}} 添加Dep
+    },
+    set:function(newVal){
+        console.log('set val:'+newVal);
+        a=newVal;
+        //update
+    }
+});
+
+```
+
+
+
+Vnode diff 
+
+重写数据的某一个key   get set   
+
+
+数组 对象    新增的key？？    $set 
+
+
+数组操作 ==> 频繁的get set 
+vue 重写了 ??
+
+指令 
+
+
+watcher 关系 
+
+
+watcher    directive 
+
+observer  响应式数据
+
+dep 
+1. 收集  什么？  Watcher
+2. 通知  谁 什么？
