@@ -8,6 +8,7 @@ let uid = 0;
 */
 function Watcher(vm, node, name, type) {
 
+    // new的时候
     Dep.target = this;
 
     this.name = name;//text
@@ -16,6 +17,7 @@ function Watcher(vm, node, name, type) {
     this.vm = vm;//VM
     this.type = type;//'nodeValue'
 
+    // 初始化模版里的值
     this.update();//执行Render==》使用到对应的name 
 
     Dep.target = null;
@@ -28,9 +30,10 @@ function Watcher(vm, node, name, type) {
 // }
 
 Watcher.prototype = {
-    //去触发修改指令 
+    //去触发修改指令，new Watcher和数据变更时都会执行
     update: function () {
-        this.get();//
+        // 获取最新的数据
+        this.get();
 
 
         if (!batcher) {
@@ -50,7 +53,7 @@ Watcher.prototype = {
         //nodeValue
         //input  value
         console.log("dom update");
-        this.node[this.type] = this.value;
+        this.node[this.type] = this.value; // {{text}}.nodeValue = 
     },
     get: function () {
         // vm['text']

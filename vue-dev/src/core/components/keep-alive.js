@@ -103,6 +103,7 @@ export default {
         // so cid alone is not enough (#3269)
         ? componentOptions.Ctor.cid + (componentOptions.tag ? `::${componentOptions.tag}` : '')
         : vnode.key
+      // 已经包含时先移除，在推入
       if (cache[key]) {
         vnode.componentInstance = cache[key].componentInstance
         // make current key freshest
@@ -112,6 +113,7 @@ export default {
         cache[key] = vnode
         keys.push(key)
         // prune oldest entry
+        // 超出范围时删除最旧的
         if (this.max && keys.length > parseInt(this.max)) {
           pruneCacheEntry(cache, keys[0], keys, this._vnode)
         }

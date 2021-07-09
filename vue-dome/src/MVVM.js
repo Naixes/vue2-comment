@@ -26,8 +26,9 @@ function Vue(options) {
      <input type="text" id="a" v-model="text">
     {{text}}
   */
+  //  触发依赖收集
   var dom = new Compile(document.getElementById(id), this);
 
-
+  // 数据已经变为99
   document.getElementById(id).appendChild(dom);
 }

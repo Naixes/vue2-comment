@@ -38,8 +38,10 @@ Compile.prototype = {
 
     while (child = node.firstChild) {
 
+      // 处理节点
       self.compileElement(child, vm);// <input type="text" id="a" v-model="text">
 
+      // 有剪切过程
       frag.append(child);
     }
 
@@ -78,7 +80,8 @@ Compile.prototype = {
         //render 
         name = name.trim();
         // node.nodeValue = vm[name];
-        //vue 1
+        // vue 1
+        // 一个指令对应了一个watcher
         new Watcher(vm, node, name, 'nodeValue');
       }
     }

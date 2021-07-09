@@ -30,7 +30,7 @@ export default class Dep {
 
   depend() {
     if (Dep.target) {
-      //wathcer.appDep(dep)
+      //wathcer.addDep(dep)
       Dep.target.addDep(this)
     }
   }

@@ -122,7 +122,7 @@ export function lifecycleMixin(Vue: Class<Component>) {
     // call the last hook...
     vm._isDestroyed = true
     // invoke destroy hooks on current rendered tree
-    vm.__patch__(vm._vnode, null)
+    vm.(vm._vnode, null)
     // fire destroyed hook
     callHook(vm, 'destroyed')
     // turn off all instance listeners.
@@ -164,6 +164,7 @@ export function mountComponent(
       }
     }
   }
+  // 执行生命周期beforeMount
   callHook(vm, 'beforeMount')
 
   let updateComponent
@@ -186,9 +187,10 @@ export function mountComponent(
       measure(`vue ${name} patch`, startTag, endTag)
     }
   } else {
-
     updateComponent = () => {
-      //TAG:绑定render
+      // TAG:绑定render
+      // _render相当于with，生成vnode
+      // update里的逻辑：判断是否有上一次节点，没有新建vnode生成dom，有就生成vnode并于旧的vnode进行diff，定向修改
       vm._update(vm._render(), hydrating)
     }
   }
@@ -196,6 +198,7 @@ export function mountComponent(
   // we set this to vm._watcher inside the watcher's constructor
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
   // component's mounted hook), which relies on vm._watcher being already defined
+  // 创建一个watcher，它会执行一次更新函数，完成挂载
   new Watcher(vm, updateComponent, noop, {
     before() {
       if (vm._isMounted && !vm._isDestroyed) {

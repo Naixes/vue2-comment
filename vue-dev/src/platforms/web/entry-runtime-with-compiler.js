@@ -14,6 +14,7 @@ const idToTemplate = cached(id => {
   return el && el.innerHTML
 })
 
+// 扩展默认$mount方法：能够编译template或el指定的模板
 const mount = Vue.prototype.$mount
 Vue.prototype.$mount = function (
   el?: string | Element,
@@ -29,8 +30,10 @@ Vue.prototype.$mount = function (
     return this
   }
 
+  // 获取选项  const options = this.$options  
   const options = this.$options
   // resolve template/el and convert to render function
+  // 不存在render选项，则将template/el的设置转换为render函数  
   if (!options.render) {
     let template = options.template
     if (template) {

@@ -90,6 +90,7 @@ export default class Watcher {
         )
       }
     }
+    // 初始化赋值，收集依赖
     this.value = this.lazy
       ? undefined
       : this.get()
@@ -99,10 +100,13 @@ export default class Watcher {
    * Evaluate the getter, and re-collect dependencies.
    */
   get() {
+    // Dep.target = target，指定当前target
     pushTarget(this)
     let value
     const vm = this.vm
     try {
+      // getter是传进来的，updateComponent函数
+      // 获取最新数据
       value = this.getter.call(vm, vm)
     } catch (e) {
       if (this.user) {
